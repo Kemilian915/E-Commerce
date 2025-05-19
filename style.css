@@ -4,8 +4,11 @@ body{
     font-family: 'Lato', sans-serif;
     background-color: #f7f7f7;
     width: 100%;
+    overflow-x: hidden;
 }
-
+*{
+    box-sizing: border-box;
+}
 
 h1{
     font-size: 40px;
@@ -75,17 +78,32 @@ p{
     padding: 8px 10px;
     border-radius: 50px;
 }
+.navbar .cartCount{
+    position: absolute;
+    top: -15px;
+    right: 7px;
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    font-size: 12px;
+    color: #000000;
+    line-height: 20px;
+    text-align: center;
+    display: none;
+}
 
 
 /* Hero Section */
 
-.hero{
+.hero {
     background-image: url("image/s25ultra-cover.jpg");
     height: 70vh;
     background-size: cover;
     background-position: center;
 }
-.hero .heroText{
+
+.hero .heroText {
     height: 120%;
     margin-left: -700px;
     display: flex;
@@ -117,12 +135,14 @@ p{
 
 /* Features */
 
+
 .featureList{
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 5px 50px;
     margin: 50px 20px;
+    flex-wrap: wrap;
 }
 .feature{
     display: flex;
@@ -203,55 +223,6 @@ footer .copyright{
 
 
 
-
-/* New Products */
-
-.product1{
-    padding: 50px 50px;
-    text-align: center;
-}
-
-.product1 .product-container{
-    display: flex;
-    justify-content: space-between;
-    padding-top: 20px;
-    transition: all 1s ease-in-out;
-    flex-wrap: wrap;
-}
-.product1 .shopContainer{
-    display: flex;
-    justify-content: space-between;
-    padding-top: 20px;
-    transition: all 1s ease-in-out;
-}
-.product1 .pro{
-    width: 15%;
-    min-width: 250px;
-    padding: 10px 10px;
-    border: 3px solid #f8c2ab;
-    border-radius: 25px;
-    cursor: pointer;
-    box-shadow: 20px 20px 30px rgba(0,0,0,0.1);
-    margin: 15px 3px;
-    transition: 0.3s ease;
-}
-.product1 .pro:hover{
-    box-shadow: 20px 20px 30px rgba(0,0,0,0.4);
-}
-.product1 .pro img{
-    width: 100%;
-    height: 68%;
-    border-radius: 10px;
-}
-.product1 .pro h5{
-    font-size: 16px;
-    text-align: start;
-}
-.product1 .pro h4{
-    text-align: start;
-}
-
-
 /* Products */
 
 .product{
@@ -271,6 +242,7 @@ footer .copyright{
     flex-wrap: wrap;
     padding-top: 20px;
     transition: all 1s ease-in-out;
+    
 }
 .product .pro{
     width: 15%;
@@ -291,11 +263,11 @@ footer .copyright{
     height: 68%;
     border-radius: 10px;
 }
-.product .pro h5{
+.product .pro .name{
     font-size: 16px;
     text-align: start;
 }
-.product .pro h4{
+.product .pro .price{
     text-align: start;
 }
 
@@ -341,27 +313,35 @@ footer .copyright{
 .proDetails{
     display: flex;
     margin-top: 20px;
-    padding: 40px 80px;
+    padding: 40px 100px;
+    
+
 }
-.proDetails .singleProImage{
-    width: 40%;
+.proDetails .mainImage1{
+    width: 30%;
     margin-right: 50px;
+    margin-top: 20px;
+    
 }
-.proDetails .singleProImage .mainImage{
+.proDetails .mainImage1 img{
+    width: 100%;
     border: 2px solid #f8c2ab;
 }
-.smallImageGroup{
+.proDetails .smallImageGroup{
     display: flex;
     justify-content: space-between;
-}
-.smallImageColon{
     flex-basis: 24%;
     cursor: pointer;
+    
+}
+.proDetails .smallImageGroup img{
+    width: 25%;
     border: 2px solid #f8c2ab;
 }
-.proDetails .singleProDetails{
+.proDetails .productInfo{
     width: 60%;
-    padding-top: 30px;
+    margin-left: 60px;
+    margin-bottom: 60px;
 }
 button{
     background-color: #fa4f06;
@@ -378,4 +358,81 @@ button:hover{
     background-color: #ffffff;
     padding: 10px 15px;
     border-radius: 50px;
+}
+
+
+/* Cart */
+
+.cart{
+    padding: 70px 9% 30px;
+}
+.cartHeader{
+    display: flex;
+    padding: 10px 0;
+    font-weight: bold;
+    border-bottom: 1px solid #f8c2ab;
+}
+.cartHeader p{
+    flex: 1;
+    text-align: center;
+}
+.cartHeader p:first-child{
+    flex: 2;
+    text-align: left;
+}
+.item{
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #f8c2ab;
+}
+.item .cartProduct{
+    flex: 2;
+    display: flex;
+    align-items: center;
+}
+.item img{
+    width: 90px;
+    margin-right: 25px;
+    border: 1px solid #f8c2ab;
+}
+.item :is(.cartPrice, .cartQuantity, .cartTotal, .removeItem){
+    flex: 1;
+    text-align: center;
+}
+.item .cartQuantity input{
+    width: 50px;
+    padding: 5px;
+    border: 1px solid #f8c2ab;
+    outline: none;
+    text-align: center;
+}
+.item .removeItem i{
+    font-size: 20px;
+    color: #0e0a08;
+    cursor: pointer;
+}
+.total{
+    width: 400px;
+    margin: 50px 0 0 auto;
+}
+.total p{
+    display: flex;
+    justify-content: space-between;
+}
+.total h4{
+    margin-bottom: 15px;
+}
+.total p:not(:last-of-type){
+    border-bottom: 1px solid #f8c2ab;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+}
+.total p:last-of-type{
+    font-weight: bold;
+}
+.total .btn{
+    display: block;
+    padding: 12px 30px;
+    margin: 30px 0 0 auto;
 }

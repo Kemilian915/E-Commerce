@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <title>TechShop</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -18,12 +18,29 @@
             <li><a href="shop.html">Shop</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact</a></li>
-            <li><a class="active" href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
+            <li><span class="cartCount"></span><a class="active" href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+            </li>
         </ul>
       </div>
     </sectiion>
 
-    
+    <section class="cart">
+        <div class="cartHeader">
+            <p>Product</p>
+            <p>Price</p>
+            <p>Quantity</p>
+            <p>Total</p>
+            <p>Remove</p>
+        </div>
+        <div class="cartItems"></div>
+        <div class="total">
+            <h4>Cart Total:</h4>
+            <p>Subtotal <span class="subtotal"></span></p>
+            <p>Delivery Fee <span>Free</span></p>
+            <p>Total <span class="totalPrice"></span></p>
+            <button class="btn">Proceed to Checkout</button>
+        </div>
+    </section>
 
     <footer class="footer">
         <div class="column">
@@ -72,7 +89,7 @@
         </div>
     </footer>
 
-
+    <script src="products.js"></script>
     <script src="main.js"></script>    
 </body>
 </html>
