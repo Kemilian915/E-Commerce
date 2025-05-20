@@ -241,8 +241,39 @@ footer .copyright{
     align-items: center;
     flex-wrap: wrap;
     padding-top: 20px;
-    transition: all 1s ease-in-out;
-    
+    transition: all 1s ease-in-out;  
+}
+.product .samsung{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    transition: all 1s ease-in-out;  
+}
+.product .apple{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    transition: all 1s ease-in-out;  
+}
+.product .xiaomi{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    transition: all 1s ease-in-out;  
+}
+.product .google{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    transition: all 1s ease-in-out;  
 }
 .product .pro{
     width: 15%;

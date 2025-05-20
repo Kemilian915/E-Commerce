@@ -1,11 +1,29 @@
 const productContainer = document.querySelector('.shopContainer');
+const samsungContainer = document.querySelector('.samsung');
+const appleContainer = document.querySelector('.apple');
+const xiaomiContainer = document.querySelector('.xiaomi');
+const googleContainer = document.querySelector('.google');
 const productDetailPage = document.querySelector('.proDetails');
 const cartPage = document.querySelector('.cart');
 
 
+
 if (productContainer) {
     displayProducts();
-} else if (productDetailPage) {
+}
+if (samsungContainer) {
+   displaySamsungProducts();
+}
+if (appleContainer) {
+    displayAppleProducts();
+}
+if (xiaomiContainer) {
+    displayXiaomiProducts();
+}
+if (googleContainer) {
+    displayGoogleProducts();
+}
+else if (productDetailPage) {
     displayProductDetail();
 } else if (cartPage) {
     displayCart();
@@ -25,6 +43,97 @@ function displayProducts() {
             <h4 class="price">${product1.price}</h4>
             `;
         productContainer.appendChild(productCard);
+
+        const imgBox = productCard;
+        imgBox.addEventListener('click', () => {
+            sessionStorage.setItem('selectedProduct', JSON.stringify(product1));
+            window.location.href = '/product-detail.html';
+        });
+    });
+}
+
+function displaySamsungProducts() {
+    const samsungProducts = products.filter(product => product.name.toLowerCase().includes('samsung'));
+    samsungProducts.forEach(product1 => {
+        const productCard = document.createElement('div');
+        productCard.classList.add('pro');
+        productCard.innerHTML= `
+            <div class="mainImage">
+                <img src="${product1.mainImage}" alt="${product1.name}">
+            </div>
+            <h5 class="name">${product1.name}</h5>
+            <h4 class="price">${product1.price}</h4>
+            `;
+        samsungContainer.appendChild(productCard);
+
+        const imgBox = productCard;
+        imgBox.addEventListener('click', () => {
+            sessionStorage.setItem('selectedProduct', JSON.stringify(product1));
+            window.location.href = '/product-detail.html';
+        });
+    });
+}
+
+function displayAppleProducts() {
+    const appleProducts = products.filter(product => product.name.toLowerCase().includes('apple'));
+    appleProducts.forEach(product1 => {
+        const productCard = document.createElement('div');
+        productCard.classList.add('pro');
+        productCard.innerHTML= `
+            <div class="mainImage">
+                <img src="${product1.mainImage}" alt="${product1.name}">
+            </div>
+            <h5 class="name">${product1.name}</h5>
+            <h4 class="price">${product1.price}</h4>
+            `;
+        appleContainer.appendChild(productCard);
+
+        const imgBox = productCard;
+        imgBox.addEventListener('click', () => {
+            sessionStorage.setItem('selectedProduct', JSON.stringify(product1));
+            window.location.href = '/product-detail.html';
+        });
+    });
+}
+
+function displayXiaomiProducts() {
+    const xiaomiProducts = products.filter(product => {
+        const name = product.name.toLowerCase();
+        return name.includes('xiaomi') || name.includes('poco');
+    });
+    xiaomiProducts.forEach(product1 => {
+        const productCard = document.createElement('div');
+        productCard.classList.add('pro');
+        productCard.innerHTML= `
+            <div class="mainImage">
+                <img src="${product1.mainImage}" alt="${product1.name}">
+            </div>
+            <h5 class="name">${product1.name}</h5>
+            <h4 class="price">${product1.price}</h4>
+            `;
+        xiaomiContainer.appendChild(productCard);
+
+        const imgBox = productCard;
+        imgBox.addEventListener('click', () => {
+            sessionStorage.setItem('selectedProduct', JSON.stringify(product1));
+            window.location.href = '/product-detail.html';
+        });
+    });
+}
+
+function displayGoogleProducts() {
+    const googleProducts = products.filter(product => product.name.toLowerCase().includes('google'));
+    googleProducts.forEach(product1 => {
+        const productCard = document.createElement('div');
+        productCard.classList.add('pro');
+        productCard.innerHTML= `
+            <div class="mainImage">
+                <img src="${product1.mainImage}" alt="${product1.name}">
+            </div>
+            <h5 class="name">${product1.name}</h5>
+            <h4 class="price">${product1.price}</h4>
+            `;
+        googleContainer.appendChild(productCard);
 
         const imgBox = productCard;
         imgBox.addEventListener('click', () => {
@@ -246,47 +355,73 @@ function getPageList(totalPages, page, maxLength){
     return range(1, sideWidth).concat(0, range(page - leftWidth, page + rightWidth), 0, range(totalPages - sideWidth + 1, totalPages));
 }
 
-$(function(){
-    var numberOfItems = $('.shopContainer .pro').length;
+function setupPagination(productSelector, paginationSelector) {
+    var $products = $(productSelector + ' .pro');
+    var numberOfItems = $products.length;
     var limitPerPage = 5;
     var totalPages = Math.ceil(numberOfItems / limitPerPage);
     var paginationSize = 7;
-    var currentPage;
+    var currentPage = 1;
 
     function showPage(whichPage){
-        if(whichPage < 1  || whichPage > totalPages) return false;
-
+        if(whichPage < 1 || whichPage > totalPages) return false;
         currentPage = whichPage;
 
-        $('.shopContainer .pro').hide().slice((currentPage - 1) * limitPerPage, currentPage * limitPerPage).show();
+        $products.hide().slice((currentPage - 1) * limitPerPage, currentPage * limitPerPage).show();
 
-        $('.pagination li').slice(1, -1).remove();
+        var $pagination = $(paginationSelector);
+        $pagination.find('li.pageItem').not('.prevPage, .nextPage').remove();
 
         getPageList(totalPages, currentPage, paginationSize).forEach(item => {
             $('<li>').addClass('pageItem').addClass(item ? 'currentPage' : 'dots')
-            .toggleClass('active', item === currentPage).append($('<a>').addClass('pageLink')
-            .attr({href: 'javascript:void(0)'}).text(item || '...')).insertBefore('.nextPage');
+            .toggleClass('active', item === currentPage)
+            .append($('<a>').addClass('pageLink').attr({href: 'javascript:void(0)'}).text(item || '...'))
+            .insertBefore($pagination.find('.nextPage'));
         });
-        $('.prevPage').toggleClass('disable', currentPage === 1);
-        $('.nextPage').toggleClass('disable', currentPage === totalPages);
+
+        $pagination.find('.prevPage').toggleClass('disable', currentPage === 1);
+        $pagination.find('.nextPage').toggleClass('disable', currentPage === totalPages);
+
         return true;
     }
-    $('.pagination').append(
-        $('<li>').addClass('pageItem').addClass('prevPage').append($('<a>').addClass('pageLink').attr({href: 'javascript:void(0)'}).text('Prev')),
-        $('<li>').addClass('pageItem').addClass('nextPage').append($('<a>').addClass('pageLink').attr({href: 'javascript:void(0)'}).text('Next'))
+
+    var $pagination = $(paginationSelector);
+    $pagination.empty().append(
+        $('<li>').addClass('pageItem prevPage').append($('<a>').addClass('pageLink').attr({href: 'javascript:void(0)'}).text('Prev')),
+        $('<li>').addClass('pageItem nextPage').append($('<a>').addClass('pageLink').attr({href: 'javascript:void(0)'}).text('Next'))
     );
 
-    $('.shopContainer').show();
     showPage(1);
 
-    $(document).on('click', '.pagination li.currentPage:not(.active) a, .nextPage a, .prevPage a', function(e){
+    $pagination.off('click').on('click', 'li.pageItem', function(e){
     e.preventDefault();
-    });
 
-    $('.nextPage').on('click', function(){
-        return showPage(currentPage + 1);
-    });
-    $('.prevPage').on('click', function(){
-        return showPage(currentPage - 1);
-    });
+    var $li = $(this);
+
+    if ($li.hasClass('disable') || $li.hasClass('active') || $li.hasClass('dots')) {
+        // Do nothing for disabled, active, or dots items
+        return;
+    }
+
+    if ($li.hasClass('nextPage')) {
+        showPage(currentPage + 1);
+    } else if ($li.hasClass('prevPage')) {
+        showPage(currentPage - 1);
+    } else {
+        var pageNum = parseInt($li.text());
+        if (!isNaN(pageNum)) {
+            showPage(pageNum);
+        }
+    }
+});
+
+}
+
+// Call for each container + pagination
+$(function() {
+    setupPagination('.shopContainer', '.shopPagination');
+    setupPagination('.samsung', '.samsungPagination');
+    setupPagination('.apple', '.applePagination');
+    setupPagination('.xiaomi', '.xiaomiPagination');
+    setupPagination('.google', '.googlePagination');
 });
